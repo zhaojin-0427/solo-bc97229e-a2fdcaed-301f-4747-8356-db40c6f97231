@@ -1,0 +1,18 @@
+name: seq-lake
+
+services:
+  api:
+    build: .
+    image: seq-lake-api:latest
+    ports:
+      - "8000:8000"
+    environment:
+      DATA_DIR: /data
+      # MAX_LINE_BYTES: "16777216"   # per-line parser cap
+      # PEER_DRAIN_TIMEOUT: "60"     # seconds a failing end waits for the peer to exit
+    volumes:
+      - seq-data:/data
+    restart: unless-stopped
+
+volumes:
+  seq-data:
